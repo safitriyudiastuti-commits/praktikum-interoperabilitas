@@ -44,16 +44,21 @@ Route::delete('/category/{id}', function ($id) {
 
 //----------------------------------------------------------------
 
+// product/{id} : menampilkan 1 kategori (GET)
+Route::get('/product/{id}', function ($id) {
+    $product = Product::find($id);
+
+    if (!$product) {
+        return response()->json(['message' => 'Product not found'], 404);
+    }
+
+    return response()->json(['data' => $product]);
+});
+
 // products : menampilkan semua data kategori (GET)
 Route::get('/products', function () {
     $products = Product::get();
     return response()->json(['data' => $products]);
-});
-
-// product/{id} : menampilkan 1 kategori (GET)
-Route::get('/product/{id}', function ($id) {
-    $product = Product::find($id);
-    return response()->json(['data' => $product]);
 });
 
 // product/{id} : update kategori (PUT)
